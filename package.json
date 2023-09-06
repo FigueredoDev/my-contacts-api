@@ -6,7 +6,13 @@
   "repository": "https://github.com/FigueredoDev/my-contacts-api.git",
   "author": "JhonataFigueredo <jhowfigueredo2@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
   "dependencies": {
     "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
