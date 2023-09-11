@@ -4,12 +4,24 @@ const db = require('../../database/connection');
 class ContactsRepository {
   async findAll(orderBy = 'ASC') {
     const direction = orderBy === 'desc' ? 'DESC' : 'ASC';
-    const contacts = db.query(`SELECT * FROM contacts ORDER BY name ${direction}`);
+    const contacts = db.query(`
+      SELECT contacts.*, categories.name as category_name
+      FROM contacts
+      LEFT JOIN categories on categories.id = contacts.category_id
+      ORDER BY contacts.name ${direction}
+     `);
     return contacts;
   }
 
   async findById(id) {
-    const [contact] = await db.query('SELECT * FROM contacts WHERE id = $1', [id]);
+    const [contact] = await db.query(`
+    SELECT contacts.*, categories.name as category_name
+    FROM contacts
+    LEFT JOIN categories on categories.id = contacts.category_id
+    WHERE contacts.id = $1
+    ORDER BY contacts.name ASC
+    `, [id]);
+
     return contact;
   }
 
