@@ -11,7 +11,7 @@ const client = new Client({
   password: process.env.DB_PASSWORD,
 });
 
-client.connect();
+client.connect().catch((error) => console.log(error.message));
 
 exports.query = async (query, values) => {
   const { rows } = await client.query(query, values);
